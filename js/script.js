@@ -131,23 +131,35 @@ let gameContainer = document.querySelector(".game-container");
 let todoContainer = document.querySelector(".todo-container");
 let taskField = document.querySelector(".task-field");
 let addBtn = document.querySelector(".add-btn");
+const updateBtn = document.querySelector(".update-btn");
 let taskList = document.querySelector(".list");
 let errorField = document.querySelector(".todo-error");
 let listArr = [];
+let updateIndx;
 
 function displayList() {
+    taskList.innerHTML = "";
     for (let i = 0; i < listArr.length; i++) {
-        taskList.innerHTML += `<li>${listArr[i]} <button class="delete">Delete</button></li>`;
+        taskList.innerHTML += `<li>${listArr[i]} <button class="edit">Edit</button> <button class="delete">Delete</button></li>`;
 
         let deleteBtns = document.querySelectorAll(".delete");
+        let editBtns = document.querySelectorAll(".edit");
         let btnArr = Array.from(deleteBtns);
+        let editArr = Array.from(editBtns);
 
         for (let j = 0; j < btnArr.length; j++) {
             btnArr[j].addEventListener("click", function () {
                 listArr.splice(j, 1);
-                taskList.innerHTML = "";
-
                 displayList();
+            })
+        }
+
+        for (let j = 0; j < editArr.length; j++) {
+            editArr[j].addEventListener("click", function () {
+                taskField.value = listArr[j];
+                addBtn.style.display = "none";
+                updateBtn.style.display = "inline-block";
+                updateIndx = j;
             })
         }
     }
@@ -180,4 +192,12 @@ addBtn.addEventListener("click", function () {
         listArr.push(task);
         displayList();
     }
+});
+
+updateBtn.addEventListener("click", function () {
+    listArr[updateIndx] = taskField.value;
+    taskField.value = "";
+    displayList();
+    addBtn.style.display = "inline-block";
+    updateBtn.style.display = "none";
 });

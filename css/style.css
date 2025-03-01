@@ -2,14 +2,17 @@ p, li {
     font-size: 20px;
 }
 
-
+ol {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
 
 .chance, button, input {
     font-size: 18px;
 }
 
-
-.game-container, .player-2 {
+.game-container, .player-2, .update-btn {
     display: none;
 }
 
