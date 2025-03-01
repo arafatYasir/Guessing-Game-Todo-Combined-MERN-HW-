@@ -1,0 +1,9 @@
+.player-1, .player-2, .chance {
+    display: none;
+}
+
+.errorMessage {
+    font-size: 18px;
+    font-weight: 500;
+    color: red;
+}
