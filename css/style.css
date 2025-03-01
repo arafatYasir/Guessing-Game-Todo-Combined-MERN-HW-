@@ -1,8 +1,19 @@
-.player-1, .player-2, .chance {
+p, li {
+    font-size: 20px;
+}
+
+
+
+.chance, button, input {
+    font-size: 18px;
+}
+
+
+.game-container, .player-2 {
     display: none;
 }
 
-.errorMessage {
+.error-message, .todo-error {
     font-size: 18px;
     font-weight: 500;
     color: red;

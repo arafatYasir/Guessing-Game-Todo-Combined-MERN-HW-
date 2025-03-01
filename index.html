@@ -9,28 +9,38 @@
 </head>
 
 <body>
-    <h2 class="title">Set a number for players to guess</h2>
-    <h4 class="chance">
-        Chances: <span class="chancesNumber"></span>
-    </h4>
+    <!-- Guessing game area -->
+    <div class="game-container">
+        <h2 class="title">Player-1's turn</h2>
+        <h4 class="chance">
+            Chances: <span class="chancesNumber"></span>
+        </h4>
 
-    <div>
-        <input class="inputSetter" type="text" placeholder="Set a number">
-        <button class="btnSetter">Submit</button>
+        <div class="player-1">
+            <input class="inputPlayer1" type="text" placeholder="Enter a number">
+            <button class="btnPlayer1">Try</button>
+        </div>
+
+        <div class="player-2">
+            <input class="inputPlayer2" type="text" placeholder="Enter a number">
+            <button class="btnPlayer2">Try</button>
+        </div>
+
+        <p class="error-message"></p>
+        <p class="winnerMessage"></p>
     </div>
 
-    <div class="player-1">
-        <input class="inputPlayer1" type="text" placeholder="Enter a number">
-        <button class="btnPlayer1">Try</button>
-    </div>
+    <!-- Todo List Area -->
+    <div class="todo-container">
+        <input class="task-field" type="text" placeholder="Enter a task">
+        <button class="add-btn">Add Task</button>
 
-    <div class="player-2">
-        <input class="inputPlayer2" type="text" placeholder="Enter a number">
-        <button class="btnPlayer2">Try</button>
-    </div>
+        <p class="todo-error"></p>
 
-    <p class="errorMessage"></p>
-    <p class="winnerMessage"></p>
+        <!-- The task list will be shown inside of ul -->
+        <ul class="list"></ul>
+
+    </div>
 
     <script src="js/script.js"></script>
 </body>

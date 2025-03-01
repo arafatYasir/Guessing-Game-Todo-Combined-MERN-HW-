@@ -1,10 +1,13 @@
-function guessingGame() {
+function guessingGame(secretNum) {
+    // first removing the todo fields
+    todoContainer.style.display = "none";
+    gameContainer.style.display = "block";
+
     // catching html elements
     let title = document.querySelector(".title");
-    let inputSetter = document.querySelector(".inputSetter");
-    let btnSetter = document.querySelector(".btnSetter");
-    let errorMessage = document.querySelector(".errorMessage");
+    let errorMessage = document.querySelector(".error-message");
     let chancesNumber = document.querySelector(".chancesNumber");
+    let chance = document.querySelector(".chance");
 
     // player-1's inputfield and button
     let player1 = document.querySelector(".player-1");
@@ -16,19 +19,16 @@ function guessingGame() {
     let inputPlayer2 = document.querySelector(".inputPlayer2");
     let btnPlayer2 = document.querySelector(".btnPlayer2");
 
-    // chance field
-    let chance = document.querySelector(".chance");
-
     // winner field
     let winner = document.querySelector(".winnerMessage");
 
-    let secretNum, n1, n2;
-    let chances = 5;
+    let n1, n2, chances = 5;
 
+    // variables to mark winners
     let player1Wins = false;
     let player2Wins = false;
 
-    // a functio for printing the winner
+    // a function for printing the winners
     function finalResult() {
         title.innerHTML = `Secret number is: ${secretNum}`;
         chance.style.display = "none";
@@ -49,32 +49,7 @@ function guessingGame() {
 
     chancesNumber.innerHTML = chances;
 
-    // button setter even handling
-    btnSetter.addEventListener("click", function () {
-        // clearing prevoius error messages
-        errorMessage.innerHTML = "";
-
-        secretNum = inputSetter.value;
-        inputSetter.value = "";
-
-        if (isNaN(secretNum)) {
-            errorMessage.innerHTML = "Please enter a number";
-        }
-        else if (secretNum < 1 || secretNum > 10) {
-            errorMessage.innerHTML = "Enter a number between 1 & 10.";
-        }
-        else {
-            title.innerHTML = "Player-1's turn";
-            chance.style.display = "block";
-            inputSetter.style.display = "none";
-            btnSetter.style.display = "none";
-            player1.style.display = "block";
-        }
-    });
-
-
-
-    // player-1's event handling
+    // player-1's event handler
     btnPlayer1.addEventListener("click", function () {
         // clearing prevoius error messages
         errorMessage.innerHTML = "";
@@ -116,7 +91,7 @@ function guessingGame() {
         }
     });
 
-    // player-2's event handling
+    // player-2's event handler
     btnPlayer2.addEventListener("click", function () {
         // clearing prevoius error messages
         errorMessage.innerHTML = "";
@@ -140,7 +115,7 @@ function guessingGame() {
                     finalResult();
                 }
             }
-            else if(chances == 1) {
+            else if (chances == 1) {
                 if (n2 == secretNum) {
                     player2Wins = true;
                 }
@@ -150,5 +125,59 @@ function guessingGame() {
     });
 }
 
+// todo stuffs
+// catching html elements
+let gameContainer = document.querySelector(".game-container");
+let todoContainer = document.querySelector(".todo-container");
+let taskField = document.querySelector(".task-field");
+let addBtn = document.querySelector(".add-btn");
+let taskList = document.querySelector(".list");
+let errorField = document.querySelector(".todo-error");
+let listArr = [];
 
-guessingGame();
+function displayList() {
+    for (let i = 0; i < listArr.length; i++) {
+        taskList.innerHTML += `<li>${listArr[i]} <button class="delete">Delete</button></li>`;
+
+        let deleteBtns = document.querySelectorAll(".delete");
+        let btnArr = Array.from(deleteBtns);
+
+        for (let j = 0; j < btnArr.length; j++) {
+            btnArr[j].addEventListener("click", function () {
+                listArr.splice(j, 1);
+                taskList.innerHTML = "";
+
+                displayList();
+            })
+        }
+    }
+}
+
+addBtn.addEventListener("click", function () {
+    // clearing previous error message
+    errorField.innerHTML = "";
+
+    // clearing previous list array
+    taskList.innerHTML = "";
+
+    // getting the task value
+    let task = taskField.value;
+    taskField.value = "";
+
+    // checking if it is a number -> then start the game
+    if (task.trim() === "") {
+        errorField.innerHTML = "Please enter something (text or number).";
+    }
+    else if (!isNaN(task)) {
+        if (task >= 1 && task <= 10) {
+            guessingGame(task);
+        }
+        else {
+            errorField.innerHTML = "If you enter a number that must be inside 1 to 10.";
+        }
+    }
+    else {
+        listArr.push(task);
+        displayList();
+    }
+});
